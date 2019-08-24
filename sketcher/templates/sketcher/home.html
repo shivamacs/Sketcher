@@ -1,0 +1,124 @@
+{% load static %}
+{% include 'sketcher/base_header.html' %}
+
+<head>
+  <title>Sketcher - Dive into the world of blogs. Read, write and connect.</title>
+  <style>
+    .context {
+      text-align: justify;
+    }
+  </style>
+</head>
+
+<div id="index-banner" class="parallax-container">
+  <div class="section no-pad-bot">
+    <div class="container" style="height: auto !important; min-height: 100%;">
+      <br><br>
+      <h1 style="text-shadow: 3px 2px 4px black;" class="header center teal-text text-lighten-2">Welcome to Sketcher!</h1>
+      <div class="row center" style="padding-top: 10%;">
+        <h5 class="header col s12 light">Dive into the world of blogs. Read, write and connect.</h5>
+      </div>
+      {% if not user.is_authenticated %}
+        <div class="row center">
+          <a href="{% url 'sketcher:signup' %}" title="Enter the world of blogs" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+        </div>
+      {% else %}
+        <div class="row center">
+          <a href="{% url 'sketcher:newpost' user.username %}" title="Create a blog" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Create your blog</a>
+        </div>
+      {% endif %}
+      <br><br>
+    </div>
+  </div>
+  <div class="parallax"><img src="{% static 'sketcher/background1.jpeg' %}" alt="Unsplashed background img 1"></div>
+</div>
+
+<div class="container">
+  <div class="section">
+    <!--   Icon Section   -->
+    <div class="row">
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center brown-text"><i class="material-icons">flash_on</i></h2>
+          <h5 class="center">Create posts quick and easy</h5>
+
+          <p class="light context">Our main aim is to make the task of creating blogs really easy so that you can focus on the content. And it’s not enough to have perfect grammar and spelling, we help make your blog to be personal, interesting, and interactive. Happy blogging!
+          </p>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center brown-text"><i class="material-icons">settings</i></h2>
+          <h5 class="center">Easy management</h5>
+          <p class="light context">Every post that appears on our blog is valuable, relevant, helpful and memorable. You can do that, too—just never throw content out there in web space so you can say “I updated the blog this week.”. Edit, share and manage the blogs easily.</p>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+          <h5 class="center">Connect</h5>
+          <p class="light context">Communication is the end purpose of each and every blog post. Whether it imparts knowledge, provides solutions, or simply entertains, blogging is a brilliant way of reaching out and communicating with the world. Give your time and effort, we will show it to the world.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="parallax-container valign-wrapper">
+  <div class="section">
+    <div class="container">
+      <div class="row center">
+        <h5 class="header col s12 light">Knowledge is priceless, share when you have it</h5>
+      </div>
+    </div>
+  </div>
+  <div class="parallax"><img src="{% static 'sketcher/background2.jpg' %}" alt="Unsplashed background img 2"></div>
+</div>
+
+<div class="container" style="width: 40%;">
+  <div class="section">
+    <div class="row">
+      <div class="col s12 center">
+        <h3><i class="mdi-content-send brown-text"></i></h3>
+        <h4>Recent Posts</h4>
+        {% if latest_posts_list %}
+          <ul class="collapsible">
+          {%for post in latest_posts_list %}
+            <li style="text-align: left">
+              <div class="collapsible-header">
+                <i class="material-icons">filter_none</i>{{ post.title|title }}
+              </div>
+              <div class="collapsible-body"><span>{{ post.content|safe|linebreaksbr|truncatewords:'60' }}... <a href="{%url 'sketcher:blog' username=post.author.username pk=post.slug %}">read more</a></span></div>
+            </li>
+          {% endfor %}
+          </ul>    
+        {% else %}
+          <p>No posts are available.</p>
+        {% endif %}   
+      </div>
+    </div>
+  </div>
+</div>
+      
+<div class="parallax-container valign-wrapper">
+  <div class="section">
+    <div class="container">
+      <div class="row center">
+        <h5 class="header col s12 light"></h5>
+      </div>
+    </div>
+  </div>
+  <div class="parallax"><img src="{% static 'sketcher/background3.jpg' %}"  alt="Unsplashed background img 3"></div>
+</div>        
+
+{% include 'sketcher/base_footer.html' %}
+
+<script>
+  if (window.performance.navigation.type === 2)
+    window.location.reload();
+    $(document).ready(function(){
+      $('.collapsible').collapsible();
+    });
+</script>

@@ -1,0 +1,37 @@
+{% include 'sketcher/base_header.html' %}
+{% load crispy_forms_tags %}
+
+<head><title>Sign in to your account - Sketcher</title></head>
+
+<div class="section">
+  <center>
+    <h5>Sign in to your account</h5>
+    <div class="container" style="height: auto !important; min-height: 60%;">
+      <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 20px 48px; border: 1px solid #EEE;">
+        <form class="col s12" method="POST">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <br />
+          <center>
+            <div class='row'>
+              <button type='submit' name='btn_signin' class='col s12 btn btn-large waves-effect teal lighten-1'>Sign in</button>
+            </div>
+          </center>
+        </form>
+        <a href="{% url 'sketcher:signup' %}" class="teal-text lighten-1">Create account</a>
+      </div>
+    </div>
+  </center>
+</div>
+
+<script>
+  $('.asterisk').remove();
+  $().ready(function() {
+  $('.nonfield-errors').css({'color':'red'});
+  $('button[name=btn_signin]').on('click', function() {
+    window.history.go(-1)
+    })
+  });
+</script>
+
+{% include 'sketcher/base_footer.html' %} 

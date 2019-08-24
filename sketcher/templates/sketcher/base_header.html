@@ -1,0 +1,53 @@
+{% load static %}
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'sketcher/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'sketcher/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<header>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{% url 'sketcher:home' %}" title="Home" class="brand-logo"><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#000000" d="M9.05,9H7.06V6H9.05V4.03H7.06V3.03C7.06,1.92 7.95,1.04 9.05,1.04H15.03V8L17.5,6.5L20,8V1.04H21C22.05,1.04 23,2 23,3.03V17C23,18.03 22.05,19 21,19H9.05C8,19 7.06,18.05 7.06,17V16H9.05V14H7.06V11H9.05V9M1,18H3V15H1V13H3V10H1V8H3V5H5V8H3V10H5V13H3V15H5V18H3V20H5V21H21V23H5A2,2 0 0,1 3,21V20H1V18Z" />
+        </svg>&nbsp;Sketcher</a>
+      {% if user.is_authenticated and '/posts/' in request.path  %}
+        <ul style="padding-left: 170px;" class="left hide-on-med-and-down">
+          <li><a class="btn-small waves-effect waves-light teal lighten-1" title="Create a new post" role="button" href="{% url 'sketcher:newpost' username=user.username %}">Create new</a></li>
+        </ul>
+      {% endif %}
+      {% if not user.is_authenticated and request.path != '/signin/' and request.path != '/signup/' %}
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{% url 'sketcher:signin' %}" title="Sign in">Sign in</a></li>
+          <li><a href="{% url 'sketcher:signup' %}" title="Sign up">Sign up</a></li>
+        </ul>
+      {% elif user.is_authenticated %}
+        <ul class="right hide-on-med-and-down">
+          <a class='dropdown-trigger' href="#" data-target="dropdown1">{{ user.username|title }}</a></li>
+          <!-- Dropdown Structure -->
+          <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="{% url 'sketcher:signout' %}" title="Sign out" style="color: black;">Sign out</a></li>
+            <li><a href="{% url 'sketcher:posts' user.username %}" title="My posts" style="color: black;">My posts</a></li>
+          </ul>
+        </ul>
+        <ul id="nav-mobile" class="sidenav">
+          <li><a href="{% url 'sketcher:signout' %}" title="Sign out" style="color: black;">Sign out</a></li>
+          <li><a href="{% url 'sketcher:posts' user.username %}" title="My posts" style="color: black;">My posts</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="{% static 'sketcher/js/materialize.js' %}"></script>
+<script src="{% static 'sketcher/js/init.js' %}"></script>
+  
+<script>
+  $('.dropdown-trigger').dropdown();
+</script>

@@ -1,0 +1,56 @@
+{% load static %} 
+{% include 'sketcher/base_header.html' %}
+{% load crispy_forms_tags %}
+
+<head><title>Create your blog - Sketcher</title></head>
+
+<div class="parallax-container valign-wrapper">
+  <div class="section">
+    <div class="container">
+      <div class="row center">
+        <h1 class="header left white-text" style="text-shadow: 3px 2px 4px black;">Create your post</h1>
+      </div>
+    </div>
+  </div>
+  <div class="parallax"><img src="{% static 'sketcher/background2.jpg' %}" alt="Unsplashed background img 2"></div>
+</div>
+<br/><br/>
+ 
+<div id="register-page" class="row">
+  <div class="container">
+    <div class="row">
+      <form class="register-form" method="POST" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ blog|crispy }}          
+        <div class="row">
+          {% if post.status == 0 or '/newpost/' in request.path %}
+            <button name="draft" value="" title="Save post as draft" class="btn-large waves-effect waves-light teal lighten-1" type="submit">Save as draft</button>
+            <button name="publish" value="" title="Publish post" class="btn-large waves-effect waves-light teal lighten-1" type="submit">Publish</button>
+          {% else %}
+            <button name = "update" value="" title="Update post" class="btn-large waves-effect waves-light teal lighten-1" type="submit">Update</button>
+          {% endif %}
+        </div>
+      </form>
+    </div>            
+  </div>  
+</div> 
+
+<script>
+  $('.asterisk').remove();
+  $("label[for=id_content]").empty()
+  $("textarea[name=content]").attr('placeholder', 'Write your content here');
+  $("#div_id_image").attr({class: 'col s12', style: 'padding-bottom: 40px;'});
+  $("label[for=id_image]").attr('style', 'font-size: 1.2rem; padding-right: 20px;')
+  $("label[for=id_image]").text("Related Image")
+  $('button[name=draft]').on('click', function() {
+    $(this).attr('value', 'draft')
+  })
+  $('button[name=publish]').on('click', function() {
+    $(this).attr('value', 'publish')
+  })
+  $('button[name=update]').on('click', function() {
+    $(this).attr('value', 'update')
+  })
+</script>
+
+{% include 'sketcher/base_footer.html' %}

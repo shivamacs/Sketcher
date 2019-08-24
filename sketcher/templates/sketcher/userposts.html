@@ -1,0 +1,39 @@
+{% load static %}
+{% include 'sketcher/base_header.html' %}
+
+<head><title>Posts - Sketcher</title></head>
+
+<div class="container" style="width: 50%; height: auto !important; min-height: 60%;">
+  <h2>All posts</h2>
+  <div style="display: grid;">
+    {% if posts_list %}
+      {% for post in posts_list %}
+        <div class="col s12 m6" style="grid-template-columns: repeat(4, 1fr); grid-column-gap: 10px; grid-row-gap: 10px;">
+          <div class="card small">
+            <div class="card-image" style="height: 50%;">
+              {% if post.image %}
+                <img src="{{ post.image.url }}">
+              {% endif %}
+              <span class="card-title" style="text-shadow: 3px 2px 2px black;">{{ post.title|title }}</span>
+            </div>
+            <div class="card-content" style="overflow: scroll;">
+              <p>{{ post.content|safe|linebreaksbr|truncatewords:'60' }}... <a href="{%url 'sketcher:blog' username=post.author.username pk=post.slug %}">read more</a></p>
+            </div>
+            <div class="card-action">
+              <a href="{% url 'sketcher:edit' username=user.username pk=post.slug %}" title="Edit post"><i class="material-icons small">edit</i></a>
+              <a href="{%url 'sketcher:blog' username=post.author.username pk=post.slug %}" title="View full post"><i class="material-icons small">input</i></a>
+              {% if post.status == 0 %}
+                <span style="color: blue; font-size: 1.2rem; float:left; padding-right: 1%; ">Draft</span>
+              {% endif %}
+                <a href="{%url 'sketcher:delete' username=post.author.username pk=post.slug %}" title="Delete post" style="float: right;"><i class="material-icons small">delete</i></a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No posts are available.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% include 'sketcher/base_footer.html' %}

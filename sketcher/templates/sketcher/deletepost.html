@@ -1,0 +1,15 @@
+<html>
+    <form method="POST" action="">
+        {% csrf_token %}
+    </form>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        confirmation = confirm('Are you sure you want to delete {{ post.title }}?' ) 
+        if (confirmation) $('form').submit();
+        else window.history.go(-1)
+    });
+</script>

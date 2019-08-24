@@ -1,0 +1,48 @@
+{% include 'sketcher/base_header.html' %}
+{% load crispy_forms_tags %}
+
+<head><title>Create your account. It's free! - Sketcher</title></head>
+
+<div class="container" style="width: 50%">
+    <center><h4>Create your account. It's free!</h4></center>
+    <div id="register-page" class="row">
+        <div class="row z-depth-6 card-panel">
+            <form class="register-form" method="POST">
+                {% csrf_token %} 
+                {{ form|crispy }}   
+                <div class="row margin">
+                    <div class="input-field row">
+                        <button value="{{ request.path }}" class="btn waves-effect waves-light col s12" type="submit">Register Now</button>
+                    </div>
+                    <div class="input-field col s12">
+                        <p class="margin center medium-small sign-up">Already have an account? <a href="{%url 'sketcher:signin' %}" class="teal-text lighten-1">Sign in</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+<script>
+    $('#hint_id_username').remove();
+    $('#hint_id_password2').remove();
+    $('.asterisk').remove();
+    $('li').filter(":contains('Your password')").remove();
+
+    $().ready(function() 
+    {
+        $('.errorlist').css({'color':'red'});
+        $.ajax({
+            error: function()
+            {
+                $('.errorlist').show()
+            }
+        })
+
+    return false;
+    });
+</script>
+
+{% include 'sketcher/base_footer.html' %}
