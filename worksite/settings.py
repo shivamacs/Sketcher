@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_forms_materialize',
     'django_cleanup',
-    'django.contrib.humanize',
-    'taggit'
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [
