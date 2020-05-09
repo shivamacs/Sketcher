@@ -10,27 +10,27 @@
   </style>
 </head>
 
-<div id="index-banner" class="parallax-container">
-  <div class="section no-pad-bot">
-    <div class="container" style="height: auto !important; min-height: 100%;">
-      <br><br>
-      <h1 style="text-shadow: 3px 2px 4px black;" class="header center teal-text text-lighten-2">Welcome to Sketcher!</h1>
-      <div class="row center" style="padding-top: 10%;">
-        <h5 class="header col s12 light">Dive into the world of blogs. Read, write and connect.</h5>
-      </div>
-      {% if not user.is_authenticated %}
-        <div class="row center">
-          <a href="{% url 'sketcher:signup' %}" title="Enter the world of blogs" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+<div class="section no-pad-bot" id="index-banner">
+    <div class="parallax-container">
+        <div class="container" style="height: auto !important; min-height: 100%;">
+          <br><br>
+          <h1 style="text-shadow: 3px 2px 4px black;" class="header center teal-text text-lighten-2">Welcome to Sketcher!</h1>
+          <div class="row center" style="padding-top: 10%;">
+            <h5 class="header col s12 light">Dive into the world of blogs. Read, write and connect.</h5>
+          </div>
+          {% if not user.is_authenticated %}
+            <div class="row center">
+              <a href="{% url 'sketcher:signup' %}" title="Enter the world of blogs" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+            </div>
+          {% else %}
+            <div class="row center">
+              <a href="{% url 'sketcher:newpost' user.username %}" title="Create a blog" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Create your blog</a>
+            </div>
+          {% endif %}
+          <br><br>
         </div>
-      {% else %}
-        <div class="row center">
-          <a href="{% url 'sketcher:newpost' user.username %}" title="Create a blog" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Create your blog</a>
-        </div>
-      {% endif %}
-      <br><br>
+        <div class="parallax"><img src="{% static 'sketcher/background1.jpeg' %}" alt="Unsplashed background img 1"></div>
     </div>
-  </div>
-  <div class="parallax"><img src="{% static 'sketcher/background1.jpeg' %}" alt="Unsplashed background img 1"></div>
 </div>
 
 <div class="container">
@@ -66,15 +66,17 @@
   </div>
 </div>
 
-<div class="parallax-container valign-wrapper">
-  <div class="section">
-    <div class="container">
-      <div class="row center">
-        <h5 class="header col s12 light">Knowledge is priceless, share when you have it</h5>
+<div class="section">
+    <div class="parallax-container">
+      <div class="section">
+        <div class="container">
+          <div class="row center">
+            <h5 class="header col s12 light">Knowledge is priceless, share when you have it</h5>
+          </div>
+        </div>
       </div>
+      <div class="parallax"><img src="{% static 'sketcher/background2.jpg' %}" alt="Unsplashed background img 2"></div>
     </div>
-  </div>
-  <div class="parallax"><img src="{% static 'sketcher/background2.jpg' %}" alt="Unsplashed background img 2"></div>
 </div>
 
 <div class="container" style="width: 40%;">
@@ -93,15 +95,15 @@
               <div class="collapsible-body"><span>{{ post.content|safe|linebreaksbr|truncatewords:'60' }}... <a href="{%url 'sketcher:blog' username=post.author.username pk=post.slug %}">read more</a></span></div>
             </li>
           {% endfor %}
-          </ul>    
+          </ul>
         {% else %}
           <p>No posts are available.</p>
-        {% endif %}   
+        {% endif %}
       </div>
     </div>
   </div>
 </div>
-      
+
 <div class="parallax-container valign-wrapper">
   <div class="section">
     <div class="container">
@@ -111,7 +113,7 @@
     </div>
   </div>
   <div class="parallax"><img src="{% static 'sketcher/background3.jpg' %}"  alt="Unsplashed background img 3"></div>
-</div>        
+</div>
 
 {% include 'sketcher/base_footer.html' %}
 
