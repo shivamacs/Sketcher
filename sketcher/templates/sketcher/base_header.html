@@ -25,6 +25,11 @@
           <li><a href="{% url 'sketcher:signin' %}" title="Sign in">Sign in</a></li>
           <li><a href="{% url 'sketcher:signup' %}" title="Sign up">Sign up</a></li>
         </ul>
+        <ul id="nav-mobile" class="sidenav" style="transform: translateX(-105%);">
+            <li><a href="{% url 'sketcher:signin' %}">Sign in</a></li>
+            <li><a href="{% url 'sketcher:signup' %}" title="Sign up">Sign up</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       {% elif user.is_authenticated %}
         <ul class="right hide-on-med-and-down">
           <a class='dropdown-trigger' href="#" data-target="dropdown1">{{ user.username|title }}</a></li>
@@ -47,7 +52,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="{% static 'sketcher/js/materialize.js' %}"></script>
 <script src="{% static 'sketcher/js/init.js' %}"></script>
-  
+
 <script>
   $('.dropdown-trigger').dropdown();
 </script>
