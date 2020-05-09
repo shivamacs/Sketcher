@@ -3,13 +3,13 @@
 
 <head><title>Create your account. It's free! - Sketcher</title></head>
 
-<div class="container" style="width: 50%">
+<div class="container">
     <center><h4>Create your account. It's free!</h4></center>
     <div id="register-page" class="row">
         <div class="row z-depth-6 card-panel">
             <form class="register-form" method="POST">
-                {% csrf_token %} 
-                {{ form|crispy }}   
+                {% csrf_token %}
+                {{ form|crispy }}
                 <div class="row margin">
                     <div class="input-field row">
                         <button value="{{ request.path }}" class="btn waves-effect waves-light col s12" type="submit">Register Now</button>
@@ -31,7 +31,7 @@
     $('.asterisk').remove();
     $('li').filter(":contains('Your password')").remove();
 
-    $().ready(function() 
+    $().ready(function()
     {
         $('.errorlist').css({'color':'red'});
         $.ajax({
